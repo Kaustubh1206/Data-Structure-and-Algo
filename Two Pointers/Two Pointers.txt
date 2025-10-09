@@ -1,0 +1,207 @@
+Absolutely yes 🚀 — you can directly jump to **Two Pointers**, Kaustubh.
+In fact, after HashMap and Prefix Sum, **Two Pointers** is the most *must-know* DSA pattern for arrays & strings.
+
+I’ll now give you a **complete structured guide** (same format you liked) — but this time, **we’ll go even deeper**: not just one generic template, but **all the common variations of two-pointer patterns** that appear in interviews.
+
+---
+
+# 📚 Master Topic 1: Arrays & Strings
+
+## 📂 Sub-pattern 1: Two Pointers
+
+---
+
+### 🧠 Generic Template
+
+```python
+def two_pointers(arr, target):
+    left, right = 0, len(arr) - 1
+    while left < right:
+        # process
+        if arr[left] + arr[right] == target:
+            return [left, right]
+        elif arr[left] + arr[right] < target:
+            left += 1
+        else:
+            right -= 1
+```
+
+---
+
+### ❓ Why to Use?
+
+* Efficient for problems that require **pair/triplet searching**.
+* Removes the need for nested loops (`O(n^2)` → `O(n)`).
+* Commonly works when the array is **sorted** or can be **sorted**.
+
+---
+
+### 📍 When to Use?
+
+* Array/string is **sorted**.
+* Problem asks for **pair, triplet, closest sum, remove duplicates, reverse in-place, palindrome check**.
+* Whenever you need to **shrink/expand from both ends**.
+
+---
+
+### 🧩 Keywords in Questions
+
+* “sorted array”
+* “pair/triplet/quadruplet”
+* “closest sum”
+* “remove duplicates in-place”
+* “reverse / palindrome”
+* “container / max water”
+
+---
+
+### 📦 Types of Two Pointer Problems (with Template for Each)
+
+---
+
+#### **1. Opposite Ends (Classic)**
+
+Used in **pair sum / container / palindrome** type problems.
+
+```python
+def two_pointers_opposite(arr, target):
+    left, right = 0, len(arr) - 1
+    while left < right:
+        curr_sum = arr[left] + arr[right]
+        if curr_sum == target:
+            return [left, right]
+        elif curr_sum < target:
+            left += 1
+        else:
+            right -= 1
+```
+
+🔑 Use when array is sorted and you’re searching for pair/triplet/quadruplet.
+
+---
+
+#### **2. Same Direction (Fast–Slow Pointer)**
+
+Used in **remove duplicates, move zeros, linked list cycle** problems.
+
+```python
+def two_pointers_same_direction(arr):
+    slow = 0
+    for fast in range(len(arr)):
+        if arr[fast] != 0:   # condition to filter
+            arr[slow] = arr[fast]
+            slow += 1
+    return arr
+```
+
+🔑 Use when you need to filter elements in-place.
+
+---
+
+#### **3. Expand/Contract Window**
+
+Used in **valid palindrome, valid subsequence** problems.
+
+```python
+def palindrome_check(s):
+    left, right = 0, len(s) - 1
+    while left < right:
+        if s[left] != s[right]:
+            return False
+        left += 1
+        right -= 1
+    return True
+```
+
+🔑 Use when checking mirror-like property (strings, arrays).
+
+---
+
+#### **4. Sorting + Two Pointers**
+
+Used in **3Sum, 4Sum**.
+
+```python
+def three_sum(nums):
+    nums.sort()
+    res = []
+    for i in range(len(nums) - 2):
+        if i > 0 and nums[i] == nums[i-1]: continue
+        left, right = i+1, len(nums)-1
+        while left < right:
+            total = nums[i] + nums[left] + nums[right]
+            if total == 0:
+                res.append([nums[i], nums[left], nums[right]])
+                left += 1; right -= 1
+                while left < right and nums[left] == nums[left-1]: left += 1
+                while left < right and nums[right] == nums[right+1]: right -= 1
+            elif total < 0:
+                left += 1
+            else:
+                right -= 1
+    return res
+```
+
+🔑 Use when extending pairs into **triplets/quadruplets**.
+
+---
+
+### ⏱️ Complexity
+
+* Time: `O(n)` for pair search, `O(n^2)` for 3Sum, `O(n^3)` for 4Sum.
+* Space: `O(1)` (except output list).
+
+---
+
+### 🧪 Problems to Practice (Grouped by Type)
+
+#### **Basic Pair & Opposite Ends**
+
+* [LeetCode #167 – Two Sum II](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) ✅
+* [LeetCode #977 – Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/)
+* [LeetCode #125 – Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
+* [LeetCode #344 – Reverse String](https://leetcode.com/problems/reverse-string/)
+* [LeetCode #11 – Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+
+#### **Filtering / Same Direction**
+
+* [LeetCode #26 – Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+* [LeetCode #283 – Move Zeroes](https://leetcode.com/problems/move-zeroes/)
+* [LeetCode #392 – Is Subsequence](https://leetcode.com/problems/is-subsequence/)
+
+#### **Triplets / Quadruplets**
+
+* [LeetCode #15 – 3Sum](https://leetcode.com/problems/3sum/)
+* [LeetCode #16 – 3Sum Closest](https://leetcode.com/problems/3sum-closest/)
+* [LeetCode #18 – 4Sum](https://leetcode.com/problems/4sum/)
+
+#### **Advanced Variants**
+
+* [LeetCode #763 – Partition Labels](https://leetcode.com/problems/partition-labels/)
+* [LeetCode #75 – Sort Colors (Dutch National Flag, 3-way partition)](https://leetcode.com/problems/sort-colors/)
+
+---
+
+### ⏳ Time to Spend per Problem
+
+* **Easy** → 15–20 mins
+* **Medium** → 30–45 mins
+* **Hard** → 60–90 mins
+
+If stuck:
+
+* 10 mins no progress → reread question.
+* 20 mins stuck → small hint.
+* 30 mins stuck → full solution, retry next day.
+
+---
+
+✅ So Kaustubh, this **Two Pointers Guide** covers:
+
+* All patterns (opposite ends, same direction, expand/contract, k-sum).
+* Templates for each.
+* Problems bucketed into basic → filtering → triplets → advanced.
+
+---
+
+👉 Do you want me to now **expand Sliding Window in the same detailed structure** (all variations: fixed-size, variable-size, longest/shortest substring, etc.) — or would you like to **solve these two-pointer problems first** and then move to sliding window?
